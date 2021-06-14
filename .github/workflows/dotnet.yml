@@ -30,4 +30,4 @@ jobs:
       run: dotnet build -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj
     - name: Test
       working-directory: src
-      run: dotnet test --no-build --verbosity normal -p:PackageRuntime="${PACKAGE_RUNTIME}" -p:BUILDCONFIG="${BUILD_CONFIG}" dir.proj
+      run: dotnet msbuild -t:test --no-build --verbosity normal -p:PackageRuntime="${PACKAGE_RUNTIME}" -p:BUILDCONFIG="${BUILD_CONFIG}" dir.proj
