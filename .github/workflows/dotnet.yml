@@ -25,8 +25,7 @@ jobs:
     - name: Layout
       working-directory: src
       run: |
-        dotnet msbuild -t:layout -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj 
-        ./Misc/externals.sh ${PACKAGE_RUNTIME}
+        ./dev.sh layout ${BUILD_CONFIG} ${PACKAGE_RUNTIME}
     - name: Build
       working-directory: src
       run: dotnet build -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj
