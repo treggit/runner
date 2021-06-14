@@ -24,7 +24,9 @@ jobs:
         dotnet-version: 3.1.302
     - name: Layout
       working-directory: src
-      run: dotnet msbuild -t:layout -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj 
+      run: |
+        dotnet msbuild -t:layout -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj 
+        ./Misc/externals.sh ${PACKAGE_RUNTIME}
     - name: Build
       working-directory: src
       run: dotnet build -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj
