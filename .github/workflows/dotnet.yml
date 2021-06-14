@@ -1,0 +1,33 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+  
+    env: 
+      RUNNER_VERSION: 2.278.0
+      PACKAGE_RUNTIME: linux-x64
+      BUILD_CONFIG: Debug
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.302
+    - name: Layout
+      working-directory: src
+      run: dotnet layout -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj 
+    - name: Build
+      working-directory: src
+      run: dotnet build -p:RunnerVersion="${RUNNER_VERSION}" -p:PackageRuntime="${PACKAGE_RUNTIME}" dir.proj
+    - name: Test
+      working-directory: src
+      run: dotnet test --no-build --verbosity normal -p:PackageRuntime="${PACKAGE_RUNTIME}" -p:BUILDCONFIG="${BUILD_CONFIG}" dir.proj
